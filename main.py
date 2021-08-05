@@ -32,11 +32,113 @@ def show(lives,letters,name):
         for i in name:
             print('_', end=' ')
     print()
-def hangman():
-    pass
+def hangman(score):
+    strhangman = [
+        '''
+          
+          
+
+
+
+
+
+        ''',
+        '''
+          
+          
+
+
+
+          
+           =======
+        ''',
+        '''
+          
+              |
+              |
+              |
+              |
+              |
+           =======
+        ''',
+        '''
+          ----¬
+              |
+              |
+              |
+              |
+              |
+           =======
+        ''',
+        '''
+          ----¬
+          |   |
+              |
+              |
+              |
+              |
+           =======
+        ''',
+        '''
+          ----¬
+          |   |
+          O   |
+              |
+              |
+              |
+           =======
+        ''',
+        '''
+          ----¬
+          |   |
+          O   |
+          |   |
+              |
+              |
+           =======
+        ''',
+        '''
+          ----¬
+          |   |
+          O   |
+         /|   |
+              |
+              |
+           =======
+        ''',
+        '''
+          ----¬
+          |   |
+          O   |
+         /|\  |
+              |
+              |
+           =======
+        ''',
+        '''
+          ----¬
+          |   |
+          O   |
+         /|\  |
+         /    |
+              |
+           =======
+        ''',
+        '''
+          ----¬
+          |   |
+          O   |
+         /|\  |
+         / \  |
+              |
+           =======
+        '''
+    ]
+    print(strhangman[(10-score)])
 
 def main ():
     name = getRandomWord().upper()
+    # name = 'TRISTEZA'
     amountLetter = len(name)
     lives = 10
     letters=[]
@@ -44,6 +146,7 @@ def main ():
     
     while (lives > 0):
         show(lives,letters,name)
+        hangman(lives)
         try:
             lett = input('Ingresa una letra: ')
             if len(lett) > 1 and (not lett.isalpha()):
@@ -51,22 +154,22 @@ def main ():
             
             if lett in name:
                 letters.append(lett)
-                if len(letters) == len(name):
-                    show(lives,letters,name)
-                    complete = True
-                    break
             else:
                 lives = lives - 1
 
-            
+            if len(letters) == len(name):
+                
+                complete = True
+                break
 
         except ValueError as ve:
             print(ve)
-
+    show(lives,letters,name)
+    hangman(lives)
     if complete:
         print('Ganaste! Haz adivinado!')
     else:
-        print('HANGMAN')
+        print('Perdiste! Puedes volver a intentarlo')
 
 if __name__ == "__main__" :
     main()
